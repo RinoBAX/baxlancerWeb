@@ -1,5 +1,6 @@
 import React from 'react';
 import { Users, DollarSign, ArrowRight, Newspaper, Zap as ZapIcon } from 'lucide-react';
+import submissionsPage from '../assets/submissionsPage.jpeg';
 
 export default function Home({ setCurrentPage }) {
     const features = [
@@ -49,7 +50,7 @@ export default function Home({ setCurrentPage }) {
                         </div>
                         <div className="hero-visual">
                             <div className="hero-visual-placeholder">
-                                Visual Representasi Aplikasi
+                                <img src={submissionsPage} style={{height: '100%', objectFit: 'cover', borderRadius: '18px' }}/>
                             </div>
                         </div>
                     </div>

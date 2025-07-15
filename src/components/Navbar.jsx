@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, Zap } from 'lucide-react';
+import logoBax from '../assets/iconBaxRemovedBG.png';
 
 export default function Navbar({ setCurrentPage }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -16,8 +17,7 @@ export default function Navbar({ setCurrentPage }) {
             <div className="container">
                 <div className="navbar-content">
                     <a href="#" onClick={() => setCurrentPage('home')} className="navbar-brand">
-                       <Zap size={32} className="text-sky-500" />
-                       <span>BaxLancer</span>
+                       <img src={logoBax} height={80} />
                     </a>
                     <nav className="navbar-links">
                         {navLinks.map((link) => (
