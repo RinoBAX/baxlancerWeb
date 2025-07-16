@@ -34,7 +34,6 @@ export default function App() {
     const renderPage = () => {
         switch (currentPath) {
             case '/listproject':
-                // Tidak perlu pass `request` jika Projects mengelola API call sendiri
                 return <Projects />;
             case '/news':
                 return <News />;
