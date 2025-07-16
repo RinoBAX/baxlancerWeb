@@ -11,7 +11,6 @@ export default function Navbar({ setCurrentPage }) {
         { name: 'Cara Kerja', page: 'how-it-works' },
         { name: 'Berita', page: 'news' },
     ];
-
     return (
         <header className="navbar">
             <div className="container">
