@@ -1,101 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
-// Anda perlu memastikan react-router-dom sudah terpasang: npm install react-router-dom
 import { Link } from 'react-router-dom'; 
 
-// Asumsi hook useApi ada di path ini
-// import { useApi } from '../hooks/useApi'; 
-
-// --- Mock useApi hook untuk demonstrasi ---
-// Hapus atau ganti bagian ini dengan hook asli Anda.
-// Mock data ini sudah disesuaikan dengan struktur API Anda.
-const useApi = () => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    const mockApiResponse = {
-        // Asumsi API mengembalikan sebuah array dari objek project
-        data: [
-            {
-                "id": 1,
-                "namaProyek": "Desain Logo Perusahaan Kopi",
-                "category": "Desain Grafis",
-                "iconUrl": "https://placehold.co/600x400/3498db/ffffff?text=Logo+Design",
-                "nilaiProyek": "1500000",
-                "projectUrl": "google.com",
-                "deskripsi": "gambar",
-                "creatorId": 1,
-                "tglDibuat": "2025-07-15T22:47:36.749Z",
-                "fields": []
-            },
-            {
-                "id": 2,
-                "namaProyek": "Buat Website Toko Online",
-                "category": "Web Development",
-                "iconUrl": "https://placehold.co/600x400/2ecc71/ffffff?text=E-Commerce",
-                "nilaiProyek": "5000000",
-                "projectUrl": "google.com",
-                "deskripsi": "gambar",
-                "creatorId": 1,
-                "tglDibuat": "2025-07-15T22:47:36.749Z",
-                "fields": []
-            },
-            {
-                "id": 3,
-                "namaProyek": "Jasa SEO Website",
-                "category": "Web Development",
-                "iconUrl": "https://placehold.co/600x400/9b59b6/ffffff?text=SEO",
-                "nilaiProyek": null, // Contoh dengan nilai null
-                "projectUrl": "google.com",
-                "deskripsi": "gambar",
-                "creatorId": 1,
-                "tglDibuat": "2025-07-15T22:47:36.749Z",
-                "fields": []
-            }
-        ]
-    };
-
-    const execute = async (url) => {
-        setLoading(true);
-        setError(null);
-        console.log(`Fetching from: ${url}`);
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulasi loading
-        try {
-            // Jika API Anda mengembalikan objek dengan properti data (misal: { data: [...] }),
-            // maka struktur ini sudah benar.
-            setData(mockApiResponse);
-        } catch (err) {
-            setError(err);
-        } finally {
-            setLoading(false);
-        }
-    };
-    
-    return { data, loading, error, execute };
-};
-// --- Akhir dari mock useApi ---
-
+// Menggunakan hook useApi yang sesungguhnya dari file terpisah
+import { useApi } from '../hooks/useApi'; 
 
 export default function Projects() {
     const [activeFilter, setActiveFilter] = useState('Semua');
     const [categories, setCategories] = useState(['Semua']);
 
+    // Memanggil hook useApi. Asumsi token dikelola di level yang lebih tinggi jika diperlukan.
     const { data: projectData, loading, error, execute: fetchProjects } = useApi();
 
     useEffect(() => {
+        // Melakukan fetch data ke endpoint API yang sebenarnya
         fetchProjects('api/projects').catch(err => {
-            console.error("Gagal memuat project:", err);
+            // Error akan ditangkap dan disimpan dalam state 'error' oleh hook useApi,
+            // namun kita tetap bisa log di sini jika perlu.
+            console.error("Gagal memuat project:", err.message);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, []); // Dependency array kosong agar fetch hanya berjalan sekali
 
-    // Mengambil array dari projectData.data
+    // Mengambil array dari projectData.data, sesuai dengan struktur API Anda
     const projects = projectData?.data || [];
     
     useEffect(() => {
         if (projects.length > 0) {
-            // Key 'category' tetap sama
+            // Mengambil kategori unik dari data yang diterima
             const uniqueCategories = [...new Set(projects.map(p => p.category).filter(Boolean))];
             setCategories(['Semua', ...uniqueCategories]);
         }
@@ -138,6 +70,7 @@ export default function Projects() {
                     ))}
                 </div>
 
+                {/* Menampilkan pesan loading dan error dari hook useApi */}
                 {loading && <p>Memuat project...</p>}
                 {error && <p style={{color: 'red'}}>Error: {error.message}</p>}
                 
@@ -148,18 +81,14 @@ export default function Projects() {
                                 <article className="item-card">
                                     <img 
                                         src={project.iconUrl || 'https://placehold.co/600x400/cccccc/ffffff?text=project'} 
-                                        alt={project.namaProyek} // <-- PERUBAHAN DI SINI
+                                        alt={project.namaProyek}
                                         className="item-card-image"
                                         onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/600x400/e0e0e0/757575?text=Error'; }}
                                     />
                                     <div className="item-card-content">
                                         <p className="item-card-category">{project.category || 'Umum'}</p>
-                                        {/* PERUBAHAN DI SINI */}
                                         <h3 className="item-card-title">{project.namaProyek}</h3>
-                                        
-                                        {/* PERUBAHAN DI SINI */}
                                         <p className="item-card-reward">{formatReward(project.nilaiProyek)}</p>
-                                        
                                         <div className="item-card-footer">
                                             <button>Lihat Panduan <ArrowRight size={16} style={{display: 'inline', marginLeft: '4px'}}/></button>
                                         </div>
