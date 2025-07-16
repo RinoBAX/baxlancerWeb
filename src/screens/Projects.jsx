@@ -6,6 +6,7 @@ export default function Projects() {
     const [selectedProject, setSelectedProject] = useState(null);
     const [activeFilter, setActiveFilter] = useState('Semua');
     const [categories, setCategories] = useState(['Semua']);
+
     const { data: projectData, loading, error, execute: fetchProjects } = useApi(null);
 
     useEffect(() => {
@@ -13,18 +14,20 @@ export default function Projects() {
             console.error("Gagal memuat proyek:", err.message);
         });
     }, [fetchProjects]);
+
     const projects = projectData?.data || [];
     
-    // --- PENINGKATAN: Membuat kategori filter menjadi dinamis ---
     useEffect(() => {
         if (projects.length > 0) {
             const uniqueCategories = [...new Set(projects.map(p => p.category).filter(Boolean))];
             setCategories(['Semua', ...uniqueCategories]);
         }
-    }, [projects]); 
+    }, [projects]);
+
     const filteredProjects = activeFilter === 'Semua'
         ? projects
         : projects.filter(p => p.category === activeFilter);
+
     if (selectedProject) {
         return (
             <div className="detail-page container">
@@ -48,8 +51,6 @@ export default function Projects() {
             </div>
         );
     }
-
-    // --- Tampilan Daftar Proyek ---
     return (
         <div className="projects-page">
             <div className="page-header">
@@ -60,7 +61,6 @@ export default function Projects() {
             </div>
             <div className="container list-page-container">
                 <div className="filter-bar">
-                    {/* Menggunakan state 'categories' yang sekarang dinamis */}
                     {categories.map(category => (
                         <button
                             key={category}
@@ -72,11 +72,8 @@ export default function Projects() {
                     ))}
                 </div>
 
-                {/* Gunakan state `loading` dan `error` dari hook */}
                 {loading && <p>Memuat proyek...</p>}
                 {error && <p style={{color: 'red'}}>Error: {error.message}</p>}
-
-                {/* Tampilkan data jika loading selesai, tidak ada error, dan data ada */}
                 {!loading && !error && projects.length > 0 && (
                     <div className="item-grid">
                         {filteredProjects.map(project => (
@@ -94,7 +91,6 @@ export default function Projects() {
                         ))}
                     </div>
                 )}
-                 {/* Tampilkan pesan jika tidak ada proyek setelah loading selesai */}
                 {!loading && !error && projects.length === 0 && (
                     <p>Saat ini tidak ada proyek yang tersedia.</p>
                 )}
