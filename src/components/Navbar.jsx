@@ -20,7 +20,7 @@ export default function Navbar() {
             <div className="container">
                 <div className="navbar-content">
                     <Link to="/" className="navbar-brand" onClick={() => setIsOpen(false)}>
-                        <img src={logoBax} alt="BaxLancer Logo" style={{ height: '40px' }} />
+                        <img src={logoBax} alt="BaxLancer Logo" style={{ height: '60px' }} />
                     </Link>
                     
                     <nav className="navbar-links hidden md:flex">
