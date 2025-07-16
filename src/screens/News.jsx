@@ -6,7 +6,7 @@ export default function News() {
     const [selectedNews, setSelectedNews] = useState(null);
     const { data: newsList, loading, error, execute: fetchNews } = useApi(null);
     useEffect(() => {
-        fetchNews('/api/news').catch(err => {
+        fetchNews('api/news').catch(err => {
             console.error("Gagal memuat berita:", err.message);
         });
     }, [fetchNews]);
