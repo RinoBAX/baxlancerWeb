@@ -17,7 +17,7 @@ export default function News() {
     useEffect(() => {
         // Panggil fungsi execute dari hook dengan endpoint yang benar, misal '/news'
         // Gunakan .catch() untuk menangani error jika perlu, meskipun error sudah ada di state `error`
-        fetchNews('/news').catch(err => {
+        fetchNews('api/news').catch(err => {
             console.error("Gagal memuat berita:", err.message);
         });
         // Dependensi pada fetchNews memastikan useEffect berjalan jika fungsi (atau token) berubah.

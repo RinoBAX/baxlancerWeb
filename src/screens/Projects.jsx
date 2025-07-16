@@ -16,10 +16,12 @@ export default function Projects() {
 
     // useEffect hanya bertugas memanggil fetchProjects sekali saat komponen dimuat
     useEffect(() => {
-        // --- FIX: Mengubah endpoint dari '/projects' menjadi '/project' ---
-        // Error 404 berarti URL '/projects' tidak ditemukan di backend.
-        // Sesuaikan nama endpoint ini dengan yang ada di backend Anda.
-        fetchProjects('/project').catch(err => {
+        // --- FIX: Mencoba endpoint lain untuk mengatasi error 404 ---
+        // Error 404 berarti URL yang dipanggil tidak ada di backend.
+        // Saya mencoba '/api/project' sebagai alternatif umum lainnya.
+        // **PENTING:** Jika ini masih gagal, Anda HARUS memverifikasi alamat 
+        // endpoint yang benar dari dokumentasi API backend Anda.
+        fetchProjects('api/project').catch(err => {
             // Error sudah ditangani oleh hook, console.error ini untuk debugging tambahan
             console.error("Gagal memuat proyek:", err.message);
         });
@@ -117,6 +119,7 @@ export default function Projects() {
                         ))}
                     </div>
                 )}
+                 {/* Tampilkan pesan jika tidak ada proyek setelah loading selesai */}
                 {!loading && !error && projects.length === 0 && (
                     <p>Saat ini tidak ada proyek yang tersedia.</p>
                 )}
