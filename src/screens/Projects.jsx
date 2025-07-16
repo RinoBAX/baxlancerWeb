@@ -2,7 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom'; 
 
-import { useApi } from '../hooks/useApi'; 
+// Asumsi hook ini ada di path yang benar
+// import { useApi } from '../hooks/useApi'; 
+
+// Mock useApi untuk demonstrasi
+const useApi = () => ({
+    data: { 
+        data: [
+            { id: 1, namaProyek: 'Registrasi SeaBank', category: 'Keuangan', nilaiProyek: 50000, iconUrl: 'https://placehold.co/600x400/FF7426/ffffff?text=SeaBank', projectUrl: '/dokumen-seabank' },
+            { id: 2, namaProyek: 'Survey Produk Digital', category: 'Riset', nilaiProyek: 25000, iconUrl: 'https://placehold.co/600x400/4A90E2/ffffff?text=Survey', projectUrl: 'https://baxdigitalindonesia.com' },
+            { id: 3, namaProyek: 'Pendaftaran Aplikasi Lain', category: 'Keuangan', nilaiProyek: 40000, iconUrl: 'https://placehold.co/600x400/7ED321/ffffff?text=Aplikasi', projectUrl: null },
+        ]
+    },
+    loading: false,
+    error: null,
+    execute: () => new Promise((resolve) => resolve()),
+});
+
 
 export default function Projects() {
     const [activeFilter, setActiveFilter] = useState('Semua');
@@ -13,7 +29,8 @@ export default function Projects() {
         fetchProjects('api/projects').catch(err => {
             console.error("Gagal memuat project:", err.message);
         });
-    }, []);
+    }, []); // Sebaiknya tambahkan fetchProjects ke dependency array jika memungkinkan
+
     const projects = projectData?.data || [];
     
     useEffect(() => {
@@ -79,7 +96,21 @@ export default function Projects() {
                                         <h3 className="item-card-title">{project.namaProyek}</h3>
                                         <p className="item-card-reward">{formatReward(project.nilaiProyek)}</p>
                                         <div className="item-card-footer">
-                                            <button>Lihat Panduan <ArrowRight size={16} style={{display: 'inline', marginLeft: '4px'}}/></button>
+                                            <a
+                                                href={project.projectUrl || '#'}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="item-card-button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation(); 
+                                                    if (!project.projectUrl) {
+                                                        e.preventDefault();
+                                                        alert('Panduan untuk project ini tidak tersedia.');
+                                                    }
+                                                }}
+                                            >
+                                                Lihat Panduan <ArrowRight size={16} style={{display: 'inline', marginLeft: '4px', verticalAlign: 'middle'}}/>
+                                            </a>
                                         </div>
                                     </div>
                                 </article>
@@ -89,7 +120,7 @@ export default function Projects() {
                 )}
                 
                 {!loading && !error && filteredProjects.length === 0 && (
-                     <p>Tidak ada project yang cocok dengan filter "{activeFilter}".</p>
+                         <p>Tidak ada project yang cocok dengan filter "{activeFilter}".</p>
                 )}
 
                 {!loading && !error && projects.length === 0 && (
@@ -99,4 +130,3 @@ export default function Projects() {
         </div>
     );
 }
- 
