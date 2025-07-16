@@ -2,32 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom'; 
 
-// Menggunakan hook useApi yang sesungguhnya dari file terpisah
 import { useApi } from '../hooks/useApi'; 
 
 export default function Projects() {
     const [activeFilter, setActiveFilter] = useState('Semua');
     const [categories, setCategories] = useState(['Semua']);
-
-    // Memanggil hook useApi. Asumsi token dikelola di level yang lebih tinggi jika diperlukan.
     const { data: projectData, loading, error, execute: fetchProjects } = useApi();
 
     useEffect(() => {
-        // Melakukan fetch data ke endpoint API yang sebenarnya
         fetchProjects('api/projects').catch(err => {
-            // Error akan ditangkap dan disimpan dalam state 'error' oleh hook useApi,
-            // namun kita tetap bisa log di sini jika perlu.
             console.error("Gagal memuat project:", err.message);
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // Dependency array kosong agar fetch hanya berjalan sekali
-
-    // Mengambil array dari projectData.data, sesuai dengan struktur API Anda
+    }, []);
     const projects = projectData?.data || [];
     
     useEffect(() => {
         if (projects.length > 0) {
-            // Mengambil kategori unik dari data yang diterima
             const uniqueCategories = [...new Set(projects.map(p => p.category).filter(Boolean))];
             setCategories(['Semua', ...uniqueCategories]);
         }
@@ -70,7 +60,6 @@ export default function Projects() {
                     ))}
                 </div>
 
-                {/* Menampilkan pesan loading dan error dari hook useApi */}
                 {loading && <p>Memuat project...</p>}
                 {error && <p style={{color: 'red'}}>Error: {error.message}</p>}
                 
