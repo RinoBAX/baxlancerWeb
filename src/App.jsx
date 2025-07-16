@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import Home from './pages/Home';
-import News from './pages/News';
-import Projects from './pages/Projects';
-const Navbar = ({ navigate }) => (
-    <nav className="navbar">
-        <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>Home</a>
-        <a href="/listproject" onClick={(e) => { e.preventDefault(); navigate('/listproject'); }}>Projects</a>
-        <a href="/news" onClick={(e) => { e.preventDefault(); navigate('/news'); }}>News</a>
-    </nav>
-);
+// FIX: Path impor diubah dari './pages/' menjadi './screens/' agar sesuai dengan struktur folder Anda.
+import Home from './screens/Home';
+import News from './screens/News';
+import Projects from './screens/Projects';
+import Navbar from './components/Navbar'; 
 
 export default function App() {
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
-
     const navigate = (path) => {
         window.history.pushState({}, '', path);
         setCurrentPath(path);
