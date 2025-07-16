@@ -1,55 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, Tag, ArrowRight } from 'lucide-react';
-// Import hook useApi, bukan fungsi spesifik
 import { useApi } from '../hooks/useApi';
 
 export default function Projects() {
-    // State untuk UI: proyek yang dipilih dan filter kategori
     const [selectedProject, setSelectedProject] = useState(null);
     const [activeFilter, setActiveFilter] = useState('Semua');
-    
-    // State untuk kategori yang akan dibuat dinamis
     const [categories, setCategories] = useState(['Semua']);
-
-    // Panggil hook useApi untuk mengelola state data, loading, dan error
     const { data: projectData, loading, error, execute: fetchProjects } = useApi(null);
 
-    // useEffect hanya bertugas memanggil fetchProjects sekali saat komponen dimuat
     useEffect(() => {
-        // --- FIX: Mencoba endpoint lain untuk mengatasi error 404 ---
-        // Error 404 berarti URL yang dipanggil tidak ada di backend.
-        // Saya mencoba '/api/project' sebagai alternatif umum lainnya.
-        // **PENTING:** Jika ini masih gagal, Anda HARUS memverifikasi alamat 
-        // endpoint yang benar dari dokumentasi API backend Anda.
-        fetchProjects('api/project').catch(err => {
-            // Error sudah ditangani oleh hook, console.error ini untuk debugging tambahan
+        fetchProjects('/api/project').catch(err => {
             console.error("Gagal memuat proyek:", err.message);
         });
     }, [fetchProjects]);
-
-    // Ekstrak array proyek dari respons API.
-    // Ini menangani struktur API Anda yang mengembalikan { data: [...] }
     const projects = projectData?.data || [];
     
     // --- PENINGKATAN: Membuat kategori filter menjadi dinamis ---
     useEffect(() => {
-        // Jika data proyek sudah ada
         if (projects.length > 0) {
-            // Ambil semua kategori unik dari data proyek
-            // .filter(Boolean) akan menghapus nilai null, undefined, atau string kosong
             const uniqueCategories = [...new Set(projects.map(p => p.category).filter(Boolean))];
-            // Set state kategori dengan 'Semua' ditambah kategori unik dari API
             setCategories(['Semua', ...uniqueCategories]);
         }
-    }, [projects]); // Jalankan efek ini setiap kali data `projects` berubah
-
-
-    // Logika filter tetap sama, sekarang menggunakan data `projects` yang sudah benar
+    }, [projects]); 
     const filteredProjects = activeFilter === 'Semua'
         ? projects
         : projects.filter(p => p.category === activeFilter);
-
-    // --- Tampilan Detail Proyek (Tidak ada perubahan di sini) ---
     if (selectedProject) {
         return (
             <div className="detail-page container">
