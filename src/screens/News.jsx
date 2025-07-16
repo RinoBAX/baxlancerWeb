@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom'; // <-- Impor Link
+import { Link } from 'react-router-dom';
 import { useApi } from '../hooks/useApi';
 
 export default function News() {
@@ -19,8 +19,6 @@ export default function News() {
         if (newsData.data && Array.isArray(newsData.data)) return newsData.data;
         return [];
     }, [newsData]);
-
-    // Blok `if (selectedNews)` dihapus
 
     return (
         <div className="news-page">
@@ -41,7 +39,6 @@ export default function News() {
                 {!loading && !error && newsList.length > 0 && (
                     <div className="item-grid">
                         {newsList.map(item => (
-                            // Bungkus kartu berita dengan komponen Link
                             <Link to={`/news/${item.id}`} key={item.id} className="item-card-link">
                                 <article className="item-card">
                                     <img src={item.imageNews} alt={item.description} className="item-card-image" />

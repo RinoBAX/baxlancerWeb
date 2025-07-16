@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
-// import { useApi } from '../hooks/useApi'; // Pastikan path ini benar
+import { useApi } from '../hooks/useApi'; // Pastikan path ini benar
 
-export function NewsDetail() {
+// FIX: Menggunakan `export default` agar sesuai dengan cara impor di App.jsx
+export default function NewsDetail() {
     const { newsId } = useParams();
     const { data: newsItem, loading, error, execute: fetchNewsItem } = useApi(null);
 
     useEffect(() => {
         if (newsId) {
-            // Panggil API untuk mengambil data berita spesifik ini
-            // PASTIKAN ENDPOINT INI ADA DI BACKEND ANDA
             fetchNewsItem(`api/news/${newsId}`).catch(err => {
                 console.error("Gagal memuat detail berita:", err.message);
             });

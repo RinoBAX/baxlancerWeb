@@ -1,17 +1,9 @@
-import React, { useEffect } from 'react';
-import { useParams, Link as RouterLink } from 'react-router-dom';
-import { ChevronLeft, Tag } from 'lucide-react';
-// import { useApi } from '../hooks/useApi'; // Pastikan path ini benar
-
-export function ProjectDetail() {
-    // 1. Ambil `projectId` dari parameter URL
+export default function ProjectDetail() {
     const { projectId } = useParams();
     const { data: project, loading, error, execute: fetchProject } = useApi(null);
 
     useEffect(() => {
         if (projectId) {
-            // 2. Panggil API untuk mengambil data proyek spesifik ini
-            //    PASTIKAN ENDPOINT INI ADA DI BACKEND ANDA (lihat dokumen berikutnya)
             fetchProject(`api/projects/${projectId}`).catch(err => {
                 console.error("Gagal memuat detail proyek:", err.message);
             });
@@ -22,7 +14,6 @@ export function ProjectDetail() {
     if (error) return <div className="container"><p style={{color: 'red'}}>Error: {error.message}</p></div>;
     if (!project) return <div className="container"><p>Proyek tidak ditemukan.</p></div>;
 
-    // 3. Tampilkan halaman detail
     return (
         <div className="detail-page container">
             <RouterLink to="/listproject" className="back-button">
