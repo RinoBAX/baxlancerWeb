@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, ChevronLeft } from 'lucide-react';
-import { getNews } from '../hooks/useApi'; // Import fungsi API
+// Import hook useApi, bukan fungsi spesifik
+import { useApi } from '../hooks/useApi';
 
 export default function News() {
+    // State untuk UI, yaitu berita mana yang sedang dipilih
     const [selectedNews, setSelectedNews] = useState(null);
-    const [newsList, setNewsList] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
 
+    // Panggil hook useApi.
+    // Kita bisa menamai ulang 'execute' menjadi 'fetchNews' agar lebih deskriptif.
+    // 'data' akan berisi hasil dari API, 'loading' dan 'error' adalah state dari hook.
+    // Kita asumsikan endpoint berita tidak memerlukan token, jadi kita bisa pass `null`.
+    const { data: newsList, loading, error, execute: fetchNews } = useApi(null);
+
+    // useEffect sekarang hanya bertugas untuk memanggil fungsi fetchNews sekali.
     useEffect(() => {
-        const fetchNews = async () => {
-            setIsLoading(true);
-            setError(null);
-            const data = await getNews();
-            if (data) {
-                setNewsList(data);
-            } else {
-                setError("Tidak dapat memuat data berita.");
-            }
-            setIsLoading(false);
-        };
-        fetchNews();
-    }, []);
+        // Panggil fungsi execute dari hook dengan endpoint yang benar, misal '/news'
+        // Gunakan .catch() untuk menangani error jika perlu, meskipun error sudah ada di state `error`
+        fetchNews('/news').catch(err => {
+            console.error("Gagal memuat berita:", err.message);
+        });
+        // Dependensi pada fetchNews memastikan useEffect berjalan jika fungsi (atau token) berubah.
+    }, [fetchNews]);
 
+    // --- Tampilan Detail Berita (Tidak ada perubahan di sini) ---
     if (selectedNews) {
         return (
             <div className="detail-page container">
@@ -36,7 +37,6 @@ export default function News() {
                     <p className="detail-meta">
                         {new Date(selectedNews.tglDibuat).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </p>
-                    {/* Jika ada deskripsi panjang, bisa ditampilkan di sini. Jika tidak, judul bisa jadi deskripsi utama */}
                     <div className="detail-description">
                        <p>Informasi lebih lanjut dapat dilihat pada tautan berikut: <a href={selectedNews.newsUrl} target="_blank" rel="noopener noreferrer">{selectedNews.newsUrl}</a></p>
                     </div>
@@ -45,8 +45,9 @@ export default function News() {
         );
     }
 
+    // --- Tampilan Daftar Berita ---
     return (
-         <div className="news-page">
+        <div className="news-page">
             <div className="page-header">
                 <div className="container section-title">
                     <h2>Berita & Pengumuman</h2>
@@ -54,10 +55,16 @@ export default function News() {
                 </div>
             </div>
             <div className="container list-page-container">
-                {isLoading && <p>Memuat berita...</p>}
-                {error && <p style={{color: 'red'}}>{error}</p>}
-                {!isLoading && !error && (
+                {/* Gunakan state `loading` dari hook */}
+                {loading && <p>Memuat berita...</p>}
+
+                {/* Gunakan state `error` dari hook. Pesan error akan lebih detail. */}
+                {error && <p style={{color: 'red'}}>Error: {error.message}</p>}
+
+                {/* Tampilkan data jika loading selesai, tidak ada error, dan data ada */}
+                {!loading && !error && newsList && (
                     <div className="item-grid">
+                        {/* Ganti newsList dengan `data` dari hook, yang sudah kita ganti namanya menjadi `newsList` */}
                         {newsList.map(item => (
                             <article key={item.id} className="item-card" onClick={() => setSelectedNews(item)}>
                                  <img src={item.imageNews} alt={item.description} className="item-card-image" />
