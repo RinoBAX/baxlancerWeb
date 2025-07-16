@@ -1,9 +1,6 @@
 import React from 'react';
 import { Users, DollarSign, ArrowRight, Zap as ZapIcon } from 'lucide-react';
-// Pastikan path ke gambar ini sudah benar di dalam project Anda
-// Contoh: import submissionsPage from '../assets/SubmissionsPage.jpeg';
-// Untuk sementara, kita gunakan placeholder jika gambar tidak ada.
-const submissionsPage = 'https://placehold.co/1200x900/1f2937/a0aec0?text=App+Showcase';
+import submissionsPage from '../assets/SubmissionsPage.jpeg';
 
 
 // --- Helper Components & Data ---
