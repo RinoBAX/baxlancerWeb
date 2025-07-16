@@ -1,7 +1,7 @@
 import React from 'react';
 import { Users, DollarSign, ArrowRight, Newspaper, Zap as ZapIcon } from 'lucide-react';
 // Pastikan path ke gambar ini sudah benar di dalam proyek Anda
-import submissionsPage from '../assets/submissionsPage.jpeg';
+import submissionsPage from '../assets/SubmissionsPage.jpeg';
 
 // --- Helper Components & Data ---
 
