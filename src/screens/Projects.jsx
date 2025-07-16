@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, Tag, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+// FIX: Impor Link untuk navigasi
+import { Link } from 'react-router-dom';
 import { useApi } from '../hooks/useApi';
 
 export default function Projects() {
-    const [selectedProject, setSelectedProject] = useState(null);
+    // FIX: State `selectedProject` tidak lagi diperlukan
+    // const [selectedProject, setSelectedProject] = useState(null);
     const [activeFilter, setActiveFilter] = useState('Semua');
     const [categories, setCategories] = useState(['Semua']);
 
@@ -28,29 +31,8 @@ export default function Projects() {
         ? projects
         : projects.filter(p => p.category === activeFilter);
 
-    if (selectedProject) {
-        return (
-            <div className="detail-page container">
-                <button onClick={() => setSelectedProject(null)} className="back-button">
-                    <ChevronLeft size={20} />
-                    Kembali ke Daftar Proyek
-                </button>
-                <div className="detail-content">
-                    <img src={selectedProject.iconUrl || 'https://placehold.co/800x400/cccccc/ffffff?text=Proyek'} alt={selectedProject.namaProyek} className="detail-image" />
-                    <h1 className="detail-title">{selectedProject.namaProyek}</h1>
-                    <div className="detail-meta">
-                        <span><Tag size={16} /> {selectedProject.category || 'Umum'}</span>
-                    </div>
-                    <div className="detail-description" dangerouslySetInnerHTML={{ __html: selectedProject.deskripsi }} />
-                     <div className="project-detail-reward">
-                        <span>
-                            Hasil Pengerjaan: Rp {Number(selectedProject.nilaiProyek).toLocaleString('id-ID')}
-                        </span>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    // FIX: Blok `if (selectedProject)` dihapus karena halaman detail sekarang ditangani oleh route terpisah.
+
     return (
         <div className="projects-page">
             <div className="page-header">
@@ -74,23 +56,28 @@ export default function Projects() {
 
                 {loading && <p>Memuat proyek...</p>}
                 {error && <p style={{color: 'red'}}>Error: {error.message}</p>}
+                
                 {!loading && !error && projects.length > 0 && (
                     <div className="item-grid">
                         {filteredProjects.map(project => (
-                            <article key={project.id} className="item-card" onClick={() => setSelectedProject(project)}>
-                                <img src={project.iconUrl || 'https://placehold.co/600x400/cccccc/ffffff?text=Proyek'} alt={project.namaProyek} className="item-card-image" />
-                                <div className="item-card-content">
-                                    <p className="item-card-category">{project.category || 'Umum'}</p>
-                                    <h3 className="item-card-title">{project.namaProyek}</h3>
-                                    <p className="item-card-reward">Rp {Number(project.nilaiProyek).toLocaleString('id-ID')}</p>
-                                    <div className="item-card-footer">
-                                        <button>Lihat Panduan <ArrowRight size={16} style={{display: 'inline', marginLeft: '4px'}}/></button>
+                            // FIX: Bungkus kartu dengan komponen Link yang mengarah ke URL detail
+                            <Link to={`/listproject/${project.id}`} key={project.id} className="item-card-link">
+                                <article className="item-card">
+                                    <img src={project.iconUrl || 'https://placehold.co/600x400/cccccc/ffffff?text=Proyek'} alt={project.namaProyek} className="item-card-image" />
+                                    <div className="item-card-content">
+                                        <p className="item-card-category">{project.category || 'Umum'}</p>
+                                        <h3 className="item-card-title">{project.namaProyek}</h3>
+                                        <p className="item-card-reward">Rp {Number(project.nilaiProyek).toLocaleString('id-ID')}</p>
+                                        <div className="item-card-footer">
+                                            <button>Lihat Panduan <ArrowRight size={16} style={{display: 'inline', marginLeft: '4px'}}/></button>
+                                        </div>
                                     </div>
-                                </div>
-                            </article>
+                                </article>
+                            </Link>
                         ))}
                     </div>
                 )}
+                
                 {!loading && !error && projects.length === 0 && (
                     <p>Saat ini tidak ada proyek yang tersedia.</p>
                 )}

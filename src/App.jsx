@@ -1,44 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// FIX: Path impor diubah dari './pages/' menjadi './screens/' agar sesuai dengan struktur folder Anda.
 import Home from './screens/Home';
 import News from './screens/News';
 import Projects from './screens/Projects';
-import Navbar from './components/Navbar'; 
+import ProjectDetail from './screens/ProjectDetail'; // <-- Impor komponen baru
+import Navbar from './components/Navbar';
 
 export default function App() {
-    const [currentPath, setCurrentPath] = useState(window.location.pathname);
-    const navigate = (path) => {
-        window.history.pushState({}, '', path);
-        setCurrentPath(path);
-    };
-
-    useEffect(() => {
-        const handlePopState = () => {
-            setCurrentPath(window.location.pathname);
-        };
-        window.addEventListener('popstate', handlePopState);
-        return () => window.removeEventListener('popstate', handlePopState);
-    }, []);
-
-    const renderPage = () => {
-        switch (currentPath) {
-            case '/listproject':
-                return <Projects />;
-            case '/news':
-                return <News />;
-            case '/':
-            default:
-                return <Home navigate={navigate} />;
-        }
-    };
-
-    return (
-        <div>
-            <Navbar navigate={navigate} />
-            <main>
-                {renderPage()}
-            </main>
-        </div>
-    );
+  return (
+    <Router>
+      <div>
+        <Navbar />
+        <main>
+          <Routes>
+            {/* FIX: Tambahkan route baru untuk detail proyek. :projectId adalah parameter dinamis. */}
+            <Route path="/listproject/:projectId" element={<ProjectDetail />} />
+            <Route path="/listproject" element={<Projects />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
 }
