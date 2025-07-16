@@ -7,19 +7,52 @@ import { Link } from 'react-router-dom';
 // import { useApi } from '../hooks/useApi'; 
 
 // --- Mock useApi hook untuk demonstrasi ---
-// Hapus atau ganti bagian ini dengan hook asli Anda
+// Hapus atau ganti bagian ini dengan hook asli Anda.
+// Mock data ini sudah disesuaikan dengan struktur API Anda.
 const useApi = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const mockProjects = {
+    const mockApiResponse = {
+        // Asumsi API mengembalikan sebuah array dari objek project
         data: [
-            { id: 1, namaproject: 'Desain Logo Perusahaan Kopi', category: 'Desain Grafis', nilaiproject: '1.500.000', iconUrl: 'https://placehold.co/600x400/3498db/ffffff?text=Logo+Design' },
-            { id: 2, namaproject: 'Buat Website Toko Online', category: 'Web Development', nilaiproject: '5.000.000', iconUrl: 'https://placehold.co/600x400/2ecc71/ffffff?text=E-Commerce' },
-            { id: 3, namaproject: 'Content Writing untuk Blog', category: 'Penulisan', nilaiproject: '750.000', iconUrl: 'https://placehold.co/600x400/e74c3c/ffffff?text=Writing' },
-            { id: 4, namaproject: 'Video Promosi Produk', category: 'Video Editing', nilaiproject: '2.000.000', iconUrl: 'https://placehold.co/600x400/f39c12/ffffff?text=Video+Ad' },
-            { id: 5, namaproject: 'Jasa SEO Website', category: 'Web Development', nilaiproject: null, iconUrl: 'https://placehold.co/600x400/9b59b6/ffffff?text=SEO' }, // Contoh dengan nilai null
+            {
+                "id": 1,
+                "namaProyek": "Desain Logo Perusahaan Kopi",
+                "category": "Desain Grafis",
+                "iconUrl": "https://placehold.co/600x400/3498db/ffffff?text=Logo+Design",
+                "nilaiProyek": "1500000",
+                "projectUrl": "google.com",
+                "deskripsi": "gambar",
+                "creatorId": 1,
+                "tglDibuat": "2025-07-15T22:47:36.749Z",
+                "fields": []
+            },
+            {
+                "id": 2,
+                "namaProyek": "Buat Website Toko Online",
+                "category": "Web Development",
+                "iconUrl": "https://placehold.co/600x400/2ecc71/ffffff?text=E-Commerce",
+                "nilaiProyek": "5000000",
+                "projectUrl": "google.com",
+                "deskripsi": "gambar",
+                "creatorId": 1,
+                "tglDibuat": "2025-07-15T22:47:36.749Z",
+                "fields": []
+            },
+            {
+                "id": 3,
+                "namaProyek": "Jasa SEO Website",
+                "category": "Web Development",
+                "iconUrl": "https://placehold.co/600x400/9b59b6/ffffff?text=SEO",
+                "nilaiProyek": null, // Contoh dengan nilai null
+                "projectUrl": "google.com",
+                "deskripsi": "gambar",
+                "creatorId": 1,
+                "tglDibuat": "2025-07-15T22:47:36.749Z",
+                "fields": []
+            }
         ]
     };
 
@@ -29,7 +62,9 @@ const useApi = () => {
         console.log(`Fetching from: ${url}`);
         await new Promise(resolve => setTimeout(resolve, 1000)); // Simulasi loading
         try {
-            setData(mockProjects);
+            // Jika API Anda mengembalikan objek dengan properti data (misal: { data: [...] }),
+            // maka struktur ini sudah benar.
+            setData(mockApiResponse);
         } catch (err) {
             setError(err);
         } finally {
@@ -55,10 +90,12 @@ export default function Projects() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    // Mengambil array dari projectData.data
     const projects = projectData?.data || [];
     
     useEffect(() => {
         if (projects.length > 0) {
+            // Key 'category' tetap sama
             const uniqueCategories = [...new Set(projects.map(p => p.category).filter(Boolean))];
             setCategories(['Semua', ...uniqueCategories]);
         }
@@ -68,12 +105,6 @@ export default function Projects() {
         ? projects
         : projects.filter(p => p.category === activeFilter);
         
-    /**
-     * Fungsi untuk memformat nilai project menjadi format mata uang Rupiah.
-     * Membersihkan string dari karakter non-digit sebelum konversi.
-     * @param {string | number | null} value - Nilai project dari API.
-     * @returns {string} - Nilai yang sudah diformat, contoh: "Rp 1.500.000".
-     */
     const formatReward = (value) => {
         if (!value) {
             return 'Rp 0';
@@ -86,7 +117,6 @@ export default function Projects() {
         return `Rp ${numberValue.toLocaleString('id-ID')}`;
     };
 
-    // Mengembalikan JSX dengan struktur dan nama class asli
     return (
         <div className="projects-page">
             <div className="page-header">
@@ -118,16 +148,17 @@ export default function Projects() {
                                 <article className="item-card">
                                     <img 
                                         src={project.iconUrl || 'https://placehold.co/600x400/cccccc/ffffff?text=project'} 
-                                        alt={project.namaproject} 
+                                        alt={project.namaProyek} // <-- PERUBAHAN DI SINI
                                         className="item-card-image"
                                         onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/600x400/e0e0e0/757575?text=Error'; }}
                                     />
                                     <div className="item-card-content">
                                         <p className="item-card-category">{project.category || 'Umum'}</p>
-                                        <h3 className="item-card-title">{project.namaproject}</h3>
+                                        {/* PERUBAHAN DI SINI */}
+                                        <h3 className="item-card-title">{project.namaProyek}</h3>
                                         
-                                        {/* PERBAIKAN DARI MASALAH NaN TETAP DIGUNAKAN */}
-                                        <p className="item-card-reward">{formatReward(project.nilaiproject)}</p>
+                                        {/* PERUBAHAN DI SINI */}
+                                        <p className="item-card-reward">{formatReward(project.nilaiProyek)}</p>
                                         
                                         <div className="item-card-footer">
                                             <button>Lihat Panduan <ArrowRight size={16} style={{display: 'inline', marginLeft: '4px'}}/></button>
