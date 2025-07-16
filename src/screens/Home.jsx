@@ -71,7 +71,7 @@ export default function Home({ setCurrentPage }) {
                         </div>
                         <div className="hero-visual">
                             <div className="hero-visual-placeholder">
-                                <img src={submissionsPage} style={{height: '80%', width: '100%', objectFit: 'cover', borderRadius: '18px' }} alt="BaxLancer App Showcase"/>
+                                <img src={submissionsPage} style={{height: '80%', objectFit: 'cover', borderRadius: '18px' }} alt="BaxLancer App Showcase"/>
                             </div>
                         </div>
                     </div>
