@@ -9,7 +9,7 @@ export default function Projects() {
     const { data: projectData, loading, error, execute: fetchProjects } = useApi(null);
 
     useEffect(() => {
-        fetchProjects('api/project').catch(err => {
+        fetchProjects('api/projects').catch(err => {
             console.error("Gagal memuat proyek:", err.message);
         });
     }, [fetchProjects]);

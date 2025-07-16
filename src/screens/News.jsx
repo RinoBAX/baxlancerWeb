@@ -39,16 +39,10 @@ export default function News() {
                 </div>
             </div>
             <div className="container list-page-container">
-                {/* Gunakan state `loading` dari hook */}
                 {loading && <p>Memuat berita...</p>}
-
-                {/* Gunakan state `error` dari hook. Pesan error akan lebih detail. */}
                 {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
-
-                {/* Tampilkan data jika loading selesai, tidak ada error, dan data ada */}
                 {!loading && !error && newsList && (
                     <div className="item-grid">
-                        {/* Ganti newsList dengan `data` dari hook, yang sudah kita ganti namanya menjadi `newsList` */}
                         {newsList.map(item => (
                             <article key={item.id} className="item-card" onClick={() => setSelectedNews(item)}>
                                 <img src={item.imageNews} alt={item.description} className="item-card-image" />
