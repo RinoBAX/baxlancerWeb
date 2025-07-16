@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
-// FIX: Impor Link untuk navigasi
 // Anda perlu memastikan react-router-dom sudah terpasang: npm install react-router-dom
 import { Link } from 'react-router-dom'; 
 
@@ -38,7 +37,6 @@ const useApi = () => {
         }
     };
     
-    // Mengembalikan fungsi execute yang bisa dipanggil, mirip dengan hook asli Anda
     return { data, loading, error, execute };
 };
 // --- Akhir dari mock useApi ---
@@ -51,14 +49,11 @@ export default function Projects() {
     const { data: projectData, loading, error, execute: fetchProjects } = useApi();
 
     useEffect(() => {
-        // Menggunakan fungsi execute dari useApi untuk memuat data
-        // `fetchProjects` adalah alias untuk `execute`
         fetchProjects('api/projects').catch(err => {
-            // Error handling jika promise di-reject
             console.error("Gagal memuat project:", err);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // Cukup dijalankan sekali saat komponen dimuat
+    }, []);
 
     const projects = projectData?.data || [];
     
@@ -80,41 +75,32 @@ export default function Projects() {
      * @returns {string} - Nilai yang sudah diformat, contoh: "Rp 1.500.000".
      */
     const formatReward = (value) => {
-        // Jika value null, undefined, atau kosong, anggap 0
         if (!value) {
             return 'Rp 0';
         }
-        
-        // 1. Ubah ke string untuk memastikan method .replace() bisa digunakan.
-        // 2. Gunakan regex /\\D/g untuk menghapus semua karakter non-digit.
         const numericString = String(value).replace(/\D/g, '');
-
-        // 3. Konversi string yang sudah bersih menjadi angka.
         const numberValue = parseInt(numericString, 10);
-
-        // 4. Jika hasilnya bukan angka (misal dari string kosong), kembalikan 0.
         if (isNaN(numberValue)) {
             return 'Rp 0';
         }
-
-        // 5. Format angka ke dalam format mata uang Indonesia.
         return `Rp ${numberValue.toLocaleString('id-ID')}`;
     };
 
+    // Mengembalikan JSX dengan struktur dan nama class asli
     return (
-        <div className="bg-gray-50 min-h-screen font-sans">
-            <div className="bg-white border-b">
-                <div className="container mx-auto px-6 py-12 text-center">
-                    <h2 className="text-4xl font-bold text-gray-800 mb-2">Project Tersedia</h2>
-                    <p className="text-lg text-gray-600">Pilih project yang ingin Anda kerjakan hari ini dan dapatkan penghasilan.</p>
+        <div className="projects-page">
+            <div className="page-header">
+                <div className="container section-title">
+                    <h2>Project Tersedia</h2>
+                    <p>Pilih project yang ingin Anda kerjakan hari ini dan dapatkan penghasilan.</p>
                 </div>
             </div>
-            <div className="container mx-auto px-6 py-8">
-                <div className="flex justify-center flex-wrap gap-2 mb-8">
+            <div className="container list-page-container">
+                <div className="filter-bar">
                     {categories.map(category => (
                         <button
                             key={category}
-                            className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 ${activeFilter === category ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
+                            className={`filter-btn ${activeFilter === category ? 'active' : ''}`}
                             onClick={() => setActiveFilter(category)}
                         >
                             {category}
@@ -122,32 +108,29 @@ export default function Projects() {
                     ))}
                 </div>
 
-                {loading && <p className="text-center text-gray-500">Memuat project...</p>}
-                {error && <p className="text-center text-red-500">Error: {error.message}</p>}
+                {loading && <p>Memuat project...</p>}
+                {error && <p style={{color: 'red'}}>Error: {error.message}</p>}
                 
                 {!loading && !error && projects.length > 0 && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="item-grid">
                         {filteredProjects.map(project => (
-                            <Link to={`/listproject/${project.id}`} key={project.id} className="block group">
-                                <article className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col transition-transform duration-300 group-hover:scale-105">
+                            <Link to={`/listproject/${project.id}`} key={project.id} className="item-card-link">
+                                <article className="item-card">
                                     <img 
-                                        src={project.iconUrl || 'https://placehold.co/600x400/e0e0e0/757575?text=Project'} 
+                                        src={project.iconUrl || 'https://placehold.co/600x400/cccccc/ffffff?text=project'} 
                                         alt={project.namaproject} 
-                                        className="w-full h-48 object-cover"
+                                        className="item-card-image"
                                         onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/600x400/e0e0e0/757575?text=Error'; }}
                                     />
-                                    <div className="p-6 flex flex-col flex-grow">
-                                        <p className="text-sm font-semibold text-blue-600 mb-1">{project.category || 'Umum'}</p>
-                                        <h3 className="text-xl font-bold text-gray-800 mb-2 flex-grow">{project.namaproject}</h3>
+                                    <div className="item-card-content">
+                                        <p className="item-card-category">{project.category || 'Umum'}</p>
+                                        <h3 className="item-card-title">{project.namaproject}</h3>
                                         
-                                        {/* PERBAIKAN DI SINI */}
-                                        <p className="text-lg font-semibold text-green-600 mb-4">{formatReward(project.nilaiproject)}</p>
+                                        {/* PERBAIKAN DARI MASALAH NaN TETAP DIGUNAKAN */}
+                                        <p className="item-card-reward">{formatReward(project.nilaiproject)}</p>
                                         
-                                        <div className="mt-auto">
-                                             <div className="flex items-center justify-center text-blue-600 font-semibold">
-                                                <span>Lihat Panduan</span>
-                                                <ArrowRight size={16} className="ml-2 transition-transform duration-300 group-hover:translate-x-1"/>
-                                            </div>
+                                        <div className="item-card-footer">
+                                            <button>Lihat Panduan <ArrowRight size={16} style={{display: 'inline', marginLeft: '4px'}}/></button>
                                         </div>
                                     </div>
                                 </article>
@@ -157,11 +140,11 @@ export default function Projects() {
                 )}
                 
                 {!loading && !error && filteredProjects.length === 0 && (
-                     <p className="text-center text-gray-500 mt-8">Tidak ada project yang cocok dengan filter "{activeFilter}".</p>
+                     <p>Tidak ada project yang cocok dengan filter "{activeFilter}".</p>
                 )}
 
                 {!loading && !error && projects.length === 0 && (
-                    <p className="text-center text-gray-500 mt-8">Saat ini tidak ada project yang tersedia.</p>
+                    <p>Saat ini tidak ada project yang tersedia.</p>
                 )}
             </div>
         </div>
