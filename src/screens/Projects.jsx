@@ -7,27 +7,40 @@ export default function Projects() {
     // State untuk UI: proyek yang dipilih dan filter kategori
     const [selectedProject, setSelectedProject] = useState(null);
     const [activeFilter, setActiveFilter] = useState('Semua');
+    
+    // State untuk kategori yang akan dibuat dinamis
+    const [categories, setCategories] = useState(['Semua']);
 
     // Panggil hook useApi untuk mengelola state data, loading, dan error
-    // Kita beri nama 'data' menjadi 'projectData' agar jelas ini adalah respons mentah dari API
-    // Kita beri nama 'execute' menjadi 'fetchProjects' agar lebih deskriptif
     const { data: projectData, loading, error, execute: fetchProjects } = useApi(null);
 
     // useEffect hanya bertugas memanggil fetchProjects sekali saat komponen dimuat
     useEffect(() => {
-        // Panggil fungsi dari hook dengan endpoint yang benar, misal '/projects'
-        fetchProjects('/projects').catch(err => {
+        // --- FIX: Mengubah endpoint dari '/projects' menjadi '/project' ---
+        // Error 404 berarti URL '/projects' tidak ditemukan di backend.
+        // Sesuaikan nama endpoint ini dengan yang ada di backend Anda.
+        fetchProjects('/project').catch(err => {
+            // Error sudah ditangani oleh hook, console.error ini untuk debugging tambahan
             console.error("Gagal memuat proyek:", err.message);
         });
-        // Dependensi pada fetchProjects memastikan useEffect berjalan jika fungsi (atau token) berubah.
     }, [fetchProjects]);
 
     // Ekstrak array proyek dari respons API.
     // Ini menangani struktur API Anda yang mengembalikan { data: [...] }
     const projects = projectData?.data || [];
+    
+    // --- PENINGKATAN: Membuat kategori filter menjadi dinamis ---
+    useEffect(() => {
+        // Jika data proyek sudah ada
+        if (projects.length > 0) {
+            // Ambil semua kategori unik dari data proyek
+            // .filter(Boolean) akan menghapus nilai null, undefined, atau string kosong
+            const uniqueCategories = [...new Set(projects.map(p => p.category).filter(Boolean))];
+            // Set state kategori dengan 'Semua' ditambah kategori unik dari API
+            setCategories(['Semua', ...uniqueCategories]);
+        }
+    }, [projects]); // Jalankan efek ini setiap kali data `projects` berubah
 
-    // Data kategori bisa dibuat dinamis atau tetap statis
-    const categories = ['Semua', 'Keuangan', 'Survei', 'Aplikasi'];
 
     // Logika filter tetap sama, sekarang menggunakan data `projects` yang sudah benar
     const filteredProjects = activeFilter === 'Semua'
@@ -70,6 +83,7 @@ export default function Projects() {
             </div>
             <div className="container list-page-container">
                 <div className="filter-bar">
+                    {/* Menggunakan state 'categories' yang sekarang dinamis */}
                     {categories.map(category => (
                         <button
                             key={category}
@@ -86,7 +100,7 @@ export default function Projects() {
                 {error && <p style={{color: 'red'}}>Error: {error.message}</p>}
 
                 {/* Tampilkan data jika loading selesai, tidak ada error, dan data ada */}
-                {!loading && !error && (
+                {!loading && !error && projects.length > 0 && (
                     <div className="item-grid">
                         {filteredProjects.map(project => (
                             <article key={project.id} className="item-card" onClick={() => setSelectedProject(project)}>
@@ -102,6 +116,9 @@ export default function Projects() {
                             </article>
                         ))}
                     </div>
+                )}
+                {!loading && !error && projects.length === 0 && (
+                    <p>Saat ini tidak ada proyek yang tersedia.</p>
                 )}
             </div>
         </div>
