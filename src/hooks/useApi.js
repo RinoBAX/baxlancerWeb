@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const API_BASE_URL = import.meta.env.API_ADMIN_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_ADMIN_BASE_URL;
 
 export const useApi = (token) => {
     const [data, setData] = useState(null);
