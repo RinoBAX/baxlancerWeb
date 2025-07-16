@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
-import { ChevronLeft, Tag } from 'lucide-react';
+import { ChevronLeft, Tag, ExternalLink, Paperclip } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
-
 const formatReward = (value) => {
     if (!value) {
         return 'Rp 0';
@@ -27,8 +26,7 @@ export default function ProjectDetail() {
         }
     }, [projectId, fetchProject]);
 
-    const project = projectData?.data;
-
+    const project = projectData;
     if (loading) return <div className="container"><p>Memuat project...</p></div>;
     if (error) return <div className="container"><p style={{color: 'red'}}>Error: {error.message}</p></div>;
     if (!project) return <div className="container"><p>Project tidak ditemukan.</p></div>;
@@ -51,14 +49,36 @@ export default function ProjectDetail() {
                 <div className="detail-meta">
                     <span><Tag size={16} /> {project.category || 'Umum'}</span>
                 </div>
-                
-                <div className="detail-description" dangerouslySetInnerHTML={{ __html: project.deskripsi }} />
+                {project.fields && project.fields.length > 0 && (
+                    <div className="project-fields-section">
+                        <h2 className="fields-title">Data yang Diperlukan</h2>
+                        <ul className="fields-list">
+                            {project.fields.map(field => (
+                                <li key={field.id} className="field-item">
+                                    <Paperclip size={16} />
+                                    <span>{field.label} ({field.fieldType})</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                 
                 <div className="project-detail-reward">
                     <span>
                         Hasil Pengerjaan: {formatReward(project.nilaiProyek)}
                     </span>
                 </div>
+                {project.projectUrl && (
+                    <a 
+                        href={project.projectUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="project-url-button"
+                    >
+                        Lihat Panduan Pengerjaan
+                        <ExternalLink size={18} />
+                    </a>
+                )}
             </div>
         </div>
     );
