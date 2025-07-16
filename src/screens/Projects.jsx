@@ -14,7 +14,7 @@ export default function Projects() {
 
     useEffect(() => {
         fetchProjects('api/projects').catch(err => {
-            console.error("Gagal memuat proyek:", err.message);
+            console.error("Gagal memuat project:", err.message);
         });
     }, [fetchProjects]);
 
@@ -37,8 +37,8 @@ export default function Projects() {
         <div className="projects-page">
             <div className="page-header">
                 <div className="container section-title">
-                    <h2>Proyek Tersedia</h2>
-                    <p>Pilih proyek yang ingin Anda kerjakan hari ini dan dapatkan penghasilan.</p>
+                    <h2>project Tersedia</h2>
+                    <p>Pilih project yang ingin Anda kerjakan hari ini dan dapatkan penghasilan.</p>
                 </div>
             </div>
             <div className="container list-page-container">
@@ -54,7 +54,7 @@ export default function Projects() {
                     ))}
                 </div>
 
-                {loading && <p>Memuat proyek...</p>}
+                {loading && <p>Memuat project...</p>}
                 {error && <p style={{color: 'red'}}>Error: {error.message}</p>}
                 
                 {!loading && !error && projects.length > 0 && (
@@ -63,11 +63,11 @@ export default function Projects() {
                             // FIX: Bungkus kartu dengan komponen Link yang mengarah ke URL detail
                             <Link to={`/listproject/${project.id}`} key={project.id} className="item-card-link">
                                 <article className="item-card">
-                                    <img src={project.iconUrl || 'https://placehold.co/600x400/cccccc/ffffff?text=Proyek'} alt={project.namaProyek} className="item-card-image" />
+                                    <img src={project.iconUrl || 'https://placehold.co/600x400/cccccc/ffffff?text=project'} alt={project.namaproject} className="item-card-image" />
                                     <div className="item-card-content">
                                         <p className="item-card-category">{project.category || 'Umum'}</p>
-                                        <h3 className="item-card-title">{project.namaProyek}</h3>
-                                        <p className="item-card-reward">Rp {Number(project.nilaiProyek).toLocaleString('id-ID')}</p>
+                                        <h3 className="item-card-title">{project.namaproject}</h3>
+                                        <p className="item-card-reward">Rp {Number(project.nilaiproject).toLocaleString('id-ID')}</p>
                                         <div className="item-card-footer">
                                             <button>Lihat Panduan <ArrowRight size={16} style={{display: 'inline', marginLeft: '4px'}}/></button>
                                         </div>
@@ -79,7 +79,7 @@ export default function Projects() {
                 )}
                 
                 {!loading && !error && projects.length === 0 && (
-                    <p>Saat ini tidak ada proyek yang tersedia.</p>
+                    <p>Saat ini tidak ada project yang tersedia.</p>
                 )}
             </div>
         </div>

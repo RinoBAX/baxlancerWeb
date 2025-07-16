@@ -10,7 +10,7 @@ export default function Navbar() {
     // FIX: Tambahkan kembali link untuk 'Cara Kerja'
     const navLinks = [
         { name: 'Home', path: '/' },
-        { name: 'Proyek', path: '/listproject' },
+        { name: 'Project-List', path: '/listproject' },
         { name: 'Cara Kerja', path: '/how-it-works' },
         { name: 'Berita', path: '/news' },
     ];

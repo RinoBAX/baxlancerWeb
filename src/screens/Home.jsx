@@ -1,6 +1,6 @@
 import React from 'react';
 import { Users, DollarSign, ArrowRight, Zap as ZapIcon } from 'lucide-react';
-// Pastikan path ke gambar ini sudah benar di dalam proyek Anda
+// Pastikan path ke gambar ini sudah benar di dalam project Anda
 // Contoh: import submissionsPage from '../assets/SubmissionsPage.jpeg';
 // Untuk sementara, kita gunakan placeholder jika gambar tidak ada.
 const submissionsPage = 'https://placehold.co/1200x900/1f2937/a0aec0?text=App+Showcase';
@@ -22,9 +22,9 @@ const AndroidIcon = () => (
 );
 
 const features = [
-    { icon: <DollarSign color="white" size={24} />, title: "Peluang Tanpa Batas", description: "Akses berbagai proyek tanpa perlu sistem bidding yang rumit." },
+    { icon: <DollarSign color="white" size={24} />, title: "Peluang Tanpa Batas", description: "Akses berbagai project tanpa perlu sistem bidding yang rumit." },
     { icon: <Users color="white" size={24} />, title: "Komunitas & Komisi", description: "Bangun jaringan Anda dan dapatkan penghasilan pasif dari komisi referral." },
-    { icon: <ZapIcon color="white" size={24} />, title: "Proses Cepat & Mudah", description: "Mulai kerjakan proyek dan cairkan dana dengan proses yang simpel dan transparan." },
+    { icon: <ZapIcon color="white" size={24} />, title: "Proses Cepat & Mudah", description: "Mulai kerjakan project dan cairkan dana dengan proses yang simpel dan transparan." },
 ];
 
 
@@ -43,11 +43,11 @@ export default function Home({ navigate }) {
                                 Kesempatan Berpenghasilan <span className="highlight">Untuk Semua</span>
                             </h1>
                             <p className="hero-subtitle fade-in-up" style={{animationDelay: '0.2s'}}>
-                                BaxLancer hadir untuk membuka pintu kesempatan. Apapun latar belakang Anda, di sini Anda bisa mendapatkan penghasilan dengan mengerjakan proyek-proyek sederhana.
+                                BaxLancer hadir untuk membuka pintu kesempatan. Apapun latar belakang Anda, di sini Anda bisa mendapatkan penghasilan dengan mengerjakan project-project sederhana.
                             </p>
                             <div className="hero-actions-wrapper fade-in-up" style={{animationDelay: '0.4s'}}>
                                 <a href="/listproject" onClick={(e) => { e.preventDefault(); navigate('/listproject'); }} className="btn btn-primary">
-                                    Mulai Cari Proyek <ArrowRight style={{marginLeft: '0.5rem'}}/>
+                                    Mulai Cari project <ArrowRight style={{marginLeft: '0.5rem'}}/>
                                 </a>
                                 <div className="download-box">
                                     <p className="download-prompt-text">Unduh aplikasi kami sekarang</p>
