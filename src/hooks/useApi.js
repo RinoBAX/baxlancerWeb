@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://backendku.vercel.app/api'; // Ganti dengan URL backend Anda jika berbeda
+const API_BASE_URL = 'http://backendku.vercel.app/api';
 
 // Fungsi untuk mengambil semua berita
 export const getNews = async () => {
