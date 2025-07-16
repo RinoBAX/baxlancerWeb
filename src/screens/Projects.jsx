@@ -37,7 +37,7 @@ export default function Projects() {
         <div className="projects-page">
             <div className="page-header">
                 <div className="container section-title">
-                    <h2>project Tersedia</h2>
+                    <h2>Project Tersedia</h2>
                     <p>Pilih project yang ingin Anda kerjakan hari ini dan dapatkan penghasilan.</p>
                 </div>
             </div>

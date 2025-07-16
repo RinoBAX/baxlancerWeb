@@ -11,22 +11,22 @@ const stepsData = [
     },
     {
         icon: <BriefcaseIcon color="white" size={30} />,
-        title: "2. Kerjakan Proyek",
-        description: "Pilih dan selesaikan proyek yang tersedia di aplikasi untuk mendapatkan 100% hasil."
+        title: "2. Kerjakan project",
+        description: "Pilih dan selesaikan project yang tersedia di aplikasi untuk mendapatkan 100% hasil."
     },
     {
         icon: <Share2 color="white" size={30} />,
         title: "3. Nikmati Komisi",
-        description: "Dapatkan komisi secara otomatis ketika anggota jaringan Anda menyelesaikan proyek."
+        description: "Dapatkan komisi secara otomatis ketika anggota jaringan Anda menyelesaikan project."
     }
 ];
 
 // 2. Definisikan data untuk level komisi dalam sebuah array.
 const commissionData = [
-    { level: 'E', title: 'Anda (Pekerja)', desc: 'Mendapatkan <strong>100%</strong> dari nilai proyek.', amount: 'Rp 25.000', colorClass: 'text-green-500' },
-    { level: 'D', title: 'Upline 1', desc: 'Mendapatkan <strong>10%</strong> dari nilai proyek.', amount: 'Rp 2.500', colorClass: 'text-sky-500' },
-    { level: 'C', title: 'Upline 2', desc: 'Mendapatkan <strong>1%</strong> dari nilai proyek.', amount: 'Rp 250', colorClass: 'text-cyan-500' },
-    { level: 'B', title: 'Upline 3', desc: 'Mendapatkan <strong>0.1%</strong> dari nilai proyek.', amount: 'Rp 25', colorClass: 'text-teal-500' },
+    { level: 'E', title: 'Anda (Pekerja)', desc: 'Mendapatkan <strong>100%</strong> dari nilai project.', amount: 'Rp 25.000', colorClass: 'text-green-500' },
+    { level: 'D', title: 'Upline 1', desc: 'Mendapatkan <strong>10%</strong> dari nilai project.', amount: 'Rp 2.500', colorClass: 'text-sky-500' },
+    { level: 'C', title: 'Upline 2', desc: 'Mendapatkan <strong>1%</strong> dari nilai project.', amount: 'Rp 250', colorClass: 'text-cyan-500' },
+    { level: 'B', title: 'Upline 3', desc: 'Mendapatkan <strong>0.1%</strong> dari nilai project.', amount: 'Rp 25', colorClass: 'text-teal-500' },
     { level: 'A', title: 'Upline 4', desc: 'Komisi berhenti di level 3. Tidak mendapatkan komisi.', amount: 'Rp 0', colorClass: 'text-slate-400' }
 ];
 
@@ -61,7 +61,7 @@ export default function HowItWorks() {
                         <p>Anda mendapatkan keuntungan dari 3 level di bawah Anda. Mari kita lihat contohnya.</p>
                     </div>
                     <div className="commission-box">
-                        <p className="assumption">Asumsi: <strong>E</strong> mengerjakan proyek senilai <strong>Rp 25.000</strong>. E direkrut oleh D, D oleh C, C oleh B, dan B oleh A.</p>
+                        <p className="assumption">Asumsi: <strong>E</strong> mengerjakan project senilai <strong>Rp 25.000</strong>. E direkrut oleh D, D oleh C, C oleh B, dan B oleh A.</p>
                         
                         {/* 4. Gunakan .map() untuk merender level komisi secara dinamis */}
                         <div className="commission-levels">
