@@ -49,7 +49,8 @@ export default function Home({ navigate }) {
                                 <div className="download-box">
                                     <p className="download-prompt-text">Unduh aplikasi kami sekarang</p>
                                     <div className="app-downloads">
-                                        <a href="https://baxlancerimagefile.nos.wjv-1.neo.id/uploads/2-1752638807132-618504387.apk" className="btn btn-download">
+                                        {/* https://drive.usercontent.google.com/download?id=1vNDJqd_6dZ4ifjZICKrgvXOsvKgxQ4XH&export=download&authuser=0&confirm=t&uuid=a0beaf99-58f5-4cf0-a4d2-66fe870dc838&at=AN8xHor1ZIbw6nAu1__Ku17tZddO:1752744119847 */}
+                                        <a href="https://drive.usercontent.google.com/download?id=1vNDJqd_6dZ4ifjZICKrgvXOsvKgxQ4XH&export=download&authuser=0&confirm=t&uuid=a0beaf99-58f5-4cf0-a4d2-66fe870dc838&at=AN8xHor1ZIbw6nAu1__Ku17tZddO:1752744119847" className="btn btn-download">
                                             <AndroidIcon />
                                             <span>Android</span>
                                         </a>
