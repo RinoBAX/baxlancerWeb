@@ -8,6 +8,7 @@ import Projects from './screens/Projects';
 import ProjectDetail from './screens/ProjectDetail';
 import HowItWorks from './screens/HowItWorks';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );

@@ -1,3 +1,12 @@
+/* ============================================
+IMPROVED RESPONSIVE CSS by Gemini
+============================================
+Saya telah menambahkan beberapa penyesuaian untuk memastikan
+tampilan yang lebih baik di perangkat mobile. Perubahan utama
+ditandai dengan komentar.
+============================================
+*/
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
@@ -14,11 +23,18 @@
     --background: #f8fafc;
 }
 
+/* Penyesuaian Global & Box Sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
     background-color: var(--background);
     color: var(--slate-900);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .app-container {
@@ -35,7 +51,14 @@ main {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    /* Penyesuaian padding untuk mobile */
+    padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+    }
 }
 
 /* Animations */
@@ -52,13 +75,14 @@ main {
 
 .fade-in-up {
     animation: fadeInUp 0.8s ease-out forwards;
-    opacity: 0; /* Start hidden */
+    opacity: 0;
 }
 
 /* Navbar */
 .navbar {
     background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--slate-100);
     position: sticky;
     top: 0;
@@ -79,7 +103,14 @@ main {
     text-decoration: none;
     color: var(--navy-dark);
     font-weight: 800;
-    font-size: 1.5rem;
+    /* Penyesuaian ukuran font brand untuk mobile */
+    font-size: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
 }
 
 .navbar-links { display: none; }
@@ -99,7 +130,7 @@ main {
     background-color: var(--slate-100);
 }
 
-.mobile-menu-button { display: flex; background: none; border: none; cursor: pointer; }
+.mobile-menu-button { display: flex; background: none; border: none; cursor: pointer; padding: 0.5rem; }
 @media (min-width: 768px) { .mobile-menu-button { display: none; } }
 
 .mobile-menu {
@@ -123,29 +154,50 @@ main {
 /* Hero Section */
 .hero-section {
     background: var(--white);
-    padding: 6rem 0;
+    /* Penyesuaian padding untuk mobile */
+    padding: 4rem 0;
+    text-align: center; /* Center text on mobile */
+}
+
+@media (min-width: 992px) {
+    .hero-section {
+        padding: 6rem 0;
+        text-align: left; /* Revert to left align on desktop */
+    }
 }
 
 .hero-grid {
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
-    gap: 4rem;
+    gap: 3rem;
 }
-@media (min-width: 992px) { .hero-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 992px) { .hero-grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
 
 
 .hero-text {
-    text-align: left;
+    text-align: inherit; /* Inherit text-align from parent */
 }
 
 .hero-title {
-    font-size: 2.8rem;
+    /* Penyesuaian ukuran font judul untuk mobile */
+    font-size: 2.25rem;
     font-weight: 800;
     color: var(--slate-900);
     line-height: 1.2;
 }
-@media (min-width: 768px) { .hero-title { font-size: 3.5rem; } }
+
+@media (min-width: 640px) {
+    .hero-title {
+        font-size: 2.8rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+}
 
 .hero-title .highlight {
     background: linear-gradient(45deg, var(--sky-blue), var(--teal-light));
@@ -155,19 +207,32 @@ main {
 }
 
 .hero-subtitle {
-    margin: 1.5rem 0 0;
+    margin: 1.5rem auto 0; /* Center subtitle on mobile */
     font-size: 1.125rem;
     color: var(--slate-600);
     line-height: 1.7;
     max-width: 550px;
 }
 
+@media (min-width: 992px) {
+    .hero-subtitle {
+        margin: 1.5rem 0 0; /* Left align on desktop */
+    }
+}
+
 .hero-actions-wrapper {
     margin-top: 2.5rem;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    /* Center align actions on mobile */
+    align-items: center;
     gap: 1.25rem;
+}
+
+@media (min-width: 992px) {
+    .hero-actions-wrapper {
+        align-items: flex-start; /* Left align on desktop */
+    }
 }
 
 .hero-visual {
@@ -178,13 +243,19 @@ main {
 .hero-visual-placeholder {
     background: linear-gradient(135deg, #f0f9ff, #ccfbf1);
     border-radius: 1.5rem;
-    height: 450px;
+    height: 300px; /* Adjusted height for better balance */
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--slate-400);
     font-size: 1.2rem;
     font-weight: 500;
+}
+
+@media (min-width: 1200px) {
+    .hero-visual-placeholder {
+        height: 450px;
+    }
 }
 
 .btn {
@@ -199,6 +270,7 @@ main {
     text-decoration: none;
     transition: all 0.2s;
     cursor: pointer;
+    white-space: nowrap; /* Prevent text wrapping in buttons */
 }
 
 .btn-primary {
@@ -244,14 +316,45 @@ main {
 .btn-icon-android { filter: brightness(0) invert(1); }
 
 /* Features Section */
-.features-section { padding: 6rem 0; }
+.features-section { 
+    /* Penyesuaian padding untuk mobile */
+    padding: 4rem 0; 
+}
 
-.section-title { text-align: center; margin-bottom: 4rem; }
-.section-title h2 { font-size: 2.25rem; font-weight: 800; color: var(--slate-900); }
-.section-title p { margin: 1rem auto 0; max-width: 600px; color: var(--slate-600); font-size: 1.1rem; }
+@media(min-width: 768px) {
+    .features-section {
+        padding: 6rem 0;
+    }
+}
 
-.features-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
-@media (min-width: 768px) { .features-grid { grid-template-columns: repeat(3, 1fr); } }
+.section-title { text-align: center; margin-bottom: 3rem; }
+.section-title h2 { 
+    /* Penyesuaian ukuran font untuk mobile */
+    font-size: 1.8rem; 
+    font-weight: 800; 
+    color: var(--slate-900); 
+}
+@media(min-width: 768px) {
+    .section-title h2 {
+        font-size: 2.25rem;
+    }
+}
+.section-title p { margin: 1rem auto 0; max-width: 600px; color: var(--slate-600); font-size: 1rem; }
+@media(min-width: 768px) {
+    .section-title p {
+        font-size: 1.1rem;
+    }
+}
+
+.features-grid { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 2rem; 
+}
+/* Mengubah grid menjadi 2 kolom di tablet */
+@media (min-width: 768px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+/* Mengubah grid menjadi 3 kolom di desktop */
+@media (min-width: 1024px) { .features-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .feature-card {
     background-color: var(--white);
@@ -282,12 +385,26 @@ main {
 /* Page Header */
 .page-header {
     background: var(--white);
-    padding: 4rem 0;
+    /* Penyesuaian padding untuk mobile */
+    padding: 3rem 0;
     border-bottom: 1px solid var(--slate-100);
+}
+@media (min-width: 768px) {
+    .page-header {
+        padding: 4rem 0;
+    }
 }
 
 /* Projects & News List */
-.list-page-container { padding: 4rem 0; }
+.list-page-container { 
+    /* Penyesuaian padding untuk mobile */
+    padding: 3rem 0; 
+}
+@media (min-width: 768px) {
+    .list-page-container {
+        padding: 4rem 0;
+    }
+}
 
 .filter-bar {
     display: flex;
@@ -318,7 +435,7 @@ main {
 }
 
 .item-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
-@media (min-width: 768px) { .item-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 640px) { .item-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .item-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .item-card {
@@ -400,7 +517,16 @@ main {
 }
 
 /* Detail Page */
-.detail-page { padding: 4rem 0; }
+.detail-page { 
+    /* Penyesuaian padding untuk mobile */
+    padding: 2rem 0; 
+}
+@media (min-width: 768px) {
+    .detail-page {
+        padding: 4rem 0;
+    }
+}
+
 .back-button {
     display: inline-flex;
     align-items: center;
@@ -414,7 +540,8 @@ main {
 
 .detail-content {
     background-color: var(--white);
-    padding: 2rem;
+    /* Penyesuaian padding untuk mobile */
+    padding: 1.5rem;
     border-radius: 0.75rem;
     border: 1px solid var(--slate-100);
 }
@@ -430,10 +557,16 @@ main {
 }
 
 .detail-title {
-    font-size: 2.25rem;
+    /* Penyesuaian ukuran font untuk mobile */
+    font-size: 1.75rem;
     font-weight: 800;
     color: var(--slate-900);
     line-height: 1.2;
+}
+@media (min-width: 768px) {
+    .detail-title {
+        font-size: 2.25rem;
+    }
 }
 
 .detail-meta {
@@ -443,9 +576,15 @@ main {
 }
 
 .detail-description {
-    font-size: 1.1rem;
+    /* Penyesuaian ukuran font untuk mobile */
+    font-size: 1rem;
     line-height: 1.8;
     color: var(--slate-600);
+}
+@media (min-width: 768px) {
+    .detail-description {
+        font-size: 1.1rem;
+    }
 }
 .detail-description p, .detail-description h3 { margin-bottom: 1rem; }
 .detail-description h3 { color: var(--slate-900); }
@@ -453,11 +592,18 @@ main {
 /* How It Works */
 .commission-box {
     max-width: 56rem;
-    margin: 4rem auto 0;
+    /* Penyesuaian margin dan padding untuk mobile */
+    margin: 2rem auto 0;
     background-color: var(--white);
-    padding: 2.5rem;
+    padding: 1.5rem;
     border-radius: 1rem;
     border: 1px solid var(--slate-100);
+}
+@media (min-width: 768px) {
+    .commission-box {
+        margin: 4rem auto 0;
+        padding: 2.5rem;
+    }
 }
 .commission-box .assumption { text-align: center; color: var(--slate-600); margin-bottom: 2rem; }
 .commission-levels { position: relative; }
@@ -471,7 +617,13 @@ main {
     border-radius: 2px;
 }
 
-.level { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1rem; }
+.level { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+@media (min-width: 640px) {
+    .level {
+        gap: 1.5rem;
+    }
+}
+
 .level-icon {
     z-index: 10;
     flex-shrink: 0;
@@ -495,14 +647,26 @@ main {
 
 .level-info .level-title { font-weight: 700; color: var(--slate-900); }
 .level-info .level-desc { color: var(--slate-600); font-size: 0.9rem; }
-.level-amount { margin-left: auto; font-weight: 700; font-size: 1.25rem; }
+.level-amount { margin-left: auto; font-weight: 700; font-size: 1.1rem; }
+@media (min-width: 640px) {
+    .level-amount {
+        font-size: 1.25rem;
+    }
+}
 
 /* Footer */
 .footer {
     background-color: var(--navy-dark);
     color: var(--slate-400);
-    padding: 4rem 0;
-    margin-top: 4rem;
+    /* Penyesuaian padding untuk mobile */
+    padding: 3rem 0;
+    margin-top: 3rem;
+}
+@media (min-width: 768px) {
+    .footer {
+        padding: 4rem 0;
+        margin-top: 4rem;
+    }
 }
 
 .footer-main {
@@ -510,12 +674,39 @@ main {
     flex-direction: column;
     justify-content: space-between;
     gap: 3rem;
+    text-align: center; /* Center align footer content on mobile */
 }
-@media (min-width: 768px) { .footer-main { flex-direction: row; } }
+@media (min-width: 768px) { 
+    .footer-main { 
+        flex-direction: row; 
+        text-align: left; /* Revert to left align */
+    } 
+}
 
-.footer-brand p { margin-top: 1rem; max-width: 280px; line-height: 1.6; }
-.footer-links-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-@media (min-width: 640px) { .footer-links-grid { grid-template-columns: repeat(3, 1fr); gap: 3rem;} }
+.footer-brand p { margin: 1rem auto 0; max-width: 280px; line-height: 1.6; }
+@media (min-width: 768px) {
+    .footer-brand p {
+        margin: 1rem 0 0;
+    }
+}
+
+.footer-links-grid { 
+    display: grid; 
+    /* Mengubah grid menjadi 1 kolom di mobile */
+    grid-template-columns: 1fr; 
+    gap: 2rem; 
+}
+@media (min-width: 480px) {
+    .footer-links-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 768px) { 
+    .footer-links-grid { 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 3rem;
+    } 
+}
 
 .footer-links-grid h2 {
     margin-bottom: 1rem;
