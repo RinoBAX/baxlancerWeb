@@ -170,7 +170,7 @@ main {
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
 }
 @media (min-width: 992px) { .hero-grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
 
