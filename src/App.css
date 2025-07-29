@@ -172,7 +172,7 @@ main {
     align-items: center;
     gap: 1rem;
 }
-@media (min-width: 992px) { .hero-grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+@media (min-width: 992px) { .hero-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
 
 
 .hero-text {
