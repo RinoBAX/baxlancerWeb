@@ -207,7 +207,7 @@ main {
 }
 
 .hero-subtitle {
-    margin: 1.5rem auto 0; /* Center subtitle on mobile */
+    /* margin: 1.5rem auto 0; Center subtitle on mobile */
     font-size: 1.125rem;
     color: var(--slate-600);
     line-height: 1.7;
