@@ -52,8 +52,9 @@ export default function Home({ navigate }) {
                             </p>
                             <div className="hero-actions-wrapper fade-in-up" style={{ animationDelay: '0.4s' }}>
                                 <Link key="Project-List" to="/listproject">
-                                    <a href="/listproject" onClick={(e) => { e.preventDefault(); navigate('/listproject'); }} className="btn btn-primary">
-                                        Mulai Cari project <ArrowRight style={{ marginLeft: '0.5rem' }} />
+                                    <a href="https://baxlancer.com/listproject" onClick={(e) => { e.preventDefault(); navigate('/listproject'); }} className="btn btn-primary">
+                                        Mulai Cari project 
+                                        <ArrowRight style={{ marginLeft: '0.5rem' }} />
                                     </a>
                                 </Link>
                                 <div className="download-box">
