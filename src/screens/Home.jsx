@@ -47,9 +47,6 @@ export default function Home({ navigate }) {
                             <h1 className="hero-title fade-in-up">
                                 Kesempatan Berpenghasilan <span className="highlight">Untuk Semua</span>
                             </h1>
-                            <p className="hero-subtitle fade-in-up" style={{ animationDelay: '0.2s' }}>
-                                BaxLancer hadir untuk membuka pintu kesempatan. Apapun latar belakang Anda, di sini Anda bisa mendapatkan penghasilan dengan mengerjakan project-project sederhana.
-                            </p>
                             <div className="hero-actions-wrapper fade-in-up" style={{ animationDelay: '0.4s' }}>
                                 <div className="download-box">
                                     <p className="download-prompt-text">Unduh aplikasi kami sekarang</p>
@@ -62,6 +59,10 @@ export default function Home({ navigate }) {
                                     </div>
                                 </div>
                             </div>
+                            <p className="hero-subtitle fade-in-up" style={{ animationDelay: '0.2s' }}>
+                                BaxLancer hadir untuk membuka pintu kesempatan. Apapun latar belakang Anda, di sini Anda bisa mendapatkan penghasilan dengan mengerjakan project-project sederhana.
+                            </p>
+                            
                         </div>
                         <div className="hero-visual">
                             <div className="hero-visual-placeholder">
