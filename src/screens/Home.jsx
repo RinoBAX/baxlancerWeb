@@ -51,12 +51,6 @@ export default function Home({ navigate }) {
                                 BaxLancer hadir untuk membuka pintu kesempatan. Apapun latar belakang Anda, di sini Anda bisa mendapatkan penghasilan dengan mengerjakan project-project sederhana.
                             </p>
                             <div className="hero-actions-wrapper fade-in-up" style={{ animationDelay: '0.4s' }}>
-                                <Link key="Project-List" to="/listproject">
-                                    <a href="https://baxlancer.com/listproject" onClick={(e) => { e.preventDefault(); navigate('/listproject'); }} className="btn btn-primary">
-                                        Mulai Cari project 
-                                        <ArrowRight style={{ marginLeft: '0.5rem' }} />
-                                    </a>
-                                </Link>
                                 <div className="download-box">
                                     <p className="download-prompt-text">Unduh aplikasi kami sekarang</p>
                                     <div className="app-downloads">
