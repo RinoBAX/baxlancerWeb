@@ -9,10 +9,12 @@ import ProjectDetail from './screens/ProjectDetail';
 import HowItWorks from './screens/HowItWorks';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import PixelTracker from './hooks/PixelTracker';
 
 export default function App() {
   return (
     <Router>
+      <PixelTracker />
       <div>
         <Navbar />
         <main>
