@@ -62,7 +62,8 @@ export default function Home({ navigate }) {
                             <p className="hero-subtitle fade-in-up" style={{ animationDelay: '0.2s' }}>
                                 BaxLancer hadir untuk membuka pintu kesempatan. Apapun latar belakang Anda, di sini Anda bisa mendapatkan penghasilan dengan mengerjakan project-project sederhana.
                             </p>
-                            
+                            <p style="color: white;">1000.</p>
+
                         </div>
                         <div className="hero-visual">
                             <div className="hero-visual-placeholder">
