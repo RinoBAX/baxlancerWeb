@@ -44,18 +44,23 @@ export default function Home({ navigate }) {
                                 <div className="download-box">
                                     <p className="download-prompt-text">Unduh aplikasi kami sekarang</p>
                                     <div className="app-downloads">
-                                        <a href="https://baxlancerimagefile.nos.wjv-1.neo.id/uploads/berkas-1753027848904-195246689.apk" className="btn btn-download">
+                                        <a id='downloadAndroidApps' href="https://baxlancerimagefile.nos.wjv-1.neo.id/uploads/berkas-1753027848904-195246689.apk" className="btn btn-download">
                                             <AndroidIcon />
                                             <span>Android</span>
                                         </a>
+                                        <script type="text/javascript">
+                                            $('#downloadAndroidApps').click(function() {
+                                                fbq('track', 'Purchase', { currency: "IDR", value: 1000 })
+                                            })
+                                        </script>
                                     </div>
                                 </div>
                             </div>
                             <p className="hero-subtitle fade-in-up" style={{ animationDelay: '0.2s' }}>
                                 BaxLancer hadir untuk membuka pintu kesempatan. Apapun latar belakang Anda, di sini Anda bisa mendapatkan penghasilan dengan mengerjakan project-project sederhana.
                             </p>
-                        <p style={{color: 'white'}}>1000</p>
-                            
+                            <p style={{ color: 'white' }}>1000</p>
+
                         </div>
                         <div className="hero-visual">
                             <div className="hero-visual-placeholder">
