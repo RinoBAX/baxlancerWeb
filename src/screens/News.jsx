@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useApi } from '../hooks/useApi';
 
 export default function News() {
-    // State `selectedNews` tidak lagi diperlukan
     const { data: newsData, loading, error, execute: fetchNews } = useApi(null);
 
     useEffect(() => {

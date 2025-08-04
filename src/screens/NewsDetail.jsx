@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
-import { useApi } from '../hooks/useApi'; // Pastikan path ini benar
+import { useApi } from '../hooks/useApi';
 
-// FIX: Menggunakan `export default` agar sesuai dengan cara impor di App.jsx
 export default function NewsDetail() {
     const { newsId } = useParams();
     const { data: newsItem, loading, error, execute: fetchNewsItem } = useApi(null);

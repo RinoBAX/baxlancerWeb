@@ -1,8 +1,6 @@
 import React from 'react';
 import { Share2, UserPlus, Award, Briefcase as BriefcaseIcon } from 'lucide-react';
 
-// 1. Definisikan data untuk langkah-langkah dalam sebuah array.
-// Ini membuat penambahan atau pengubahan langkah menjadi sangat mudah.
 const stepsData = [
     {
         icon: <UserPlus color="white" size={30} />,
@@ -21,7 +19,6 @@ const stepsData = [
     }
 ];
 
-// 2. Definisikan data untuk level komisi dalam sebuah array.
 const commissionData = [
     { level: 'E', title: 'Anda (Pekerja)', desc: 'Mendapatkan <strong>100%</strong> dari nilai project.', amount: 'Rp 25.000', colorClass: 'text-green-500' },
     { level: 'D', title: 'Upline 1', desc: 'Mendapatkan <strong>10%</strong> dari nilai project.', amount: 'Rp 2.500', colorClass: 'text-sky-500' },
@@ -41,8 +38,6 @@ export default function HowItWorks() {
                 </div>
             </div>
             <div className="container" style={{paddingTop: '4rem', paddingBottom: '4rem'}}>
-                
-                {/* 3. Gunakan .map() untuk merender langkah-langkah secara dinamis */}
                 <div className="features-grid">
                     {stepsData.map((step, index) => (
                         <div key={index} className="feature-card">
@@ -62,8 +57,6 @@ export default function HowItWorks() {
                     </div>
                     <div className="commission-box">
                         <p className="assumption">Asumsi: <strong>E</strong> mengerjakan project senilai <strong>Rp 25.000</strong>. E direkrut oleh D, D oleh C, C oleh B, dan B oleh A.</p>
-                        
-                        {/* 4. Gunakan .map() untuk merender level komisi secara dinamis */}
                         <div className="commission-levels">
                             <div className="commission-line"></div>
                             {commissionData.map((item) => (
@@ -71,10 +64,8 @@ export default function HowItWorks() {
                                     <div className={`level-icon level-${item.level.toLowerCase()}`}>{item.level}</div>
                                     <div className="level-info">
                                         <p className="level-title">{item.title}</p>
-                                        {/* Gunakan dangerouslySetInnerHTML untuk merender tag <strong> */}
                                         <p className="level-desc" dangerouslySetInnerHTML={{ __html: item.desc }}></p>
                                     </div>
-                                    {/* Ganti inline style dengan class dari data */}
                                     <div className={`level-amount ${item.colorClass}`}>{item.amount}</div>
                                 </div>
                             ))}

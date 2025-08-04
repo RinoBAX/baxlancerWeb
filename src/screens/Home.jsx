@@ -4,9 +4,6 @@ import submissionsPage from '../assets/SubmissionsPage.jpeg';
 import { Link } from 'react-router-dom';
 
 
-// --- Helper Components & Data ---
-
-// Ikon Android sebagai komponen SVG untuk konsistensi dan performa
 const AndroidIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M16 8.81a4 4 0 0 1-8 0" />
@@ -33,13 +30,9 @@ const features = [
 ];
 
 
-// --- Main Home Component ---
-
-// Menggunakan `export default` agar sesuai dengan cara impor di App.jsx
 export default function Home({ navigate }) {
     return (
         <div>
-            {/* Hero Section */}
             <section className="hero-section">
                 <div className="container">
                     <div className="hero-grid">
@@ -51,7 +44,6 @@ export default function Home({ navigate }) {
                                 <div className="download-box">
                                     <p className="download-prompt-text">Unduh aplikasi kami sekarang</p>
                                     <div className="app-downloads">
-                                        {/* https://drive.usercontent.google.com/download?id=1vNDJqd_6dZ4ifjZICKrgvXOsvKgxQ4XH&export=download&authuser=0&confirm=t&uuid=a0beaf99-58f5-4cf0-a4d2-66fe870dc838&at=AN8xHor1ZIbw6nAu1__Ku17tZddO:1752744119847 */}
                                         <a href="https://baxlancerimagefile.nos.wjv-1.neo.id/uploads/berkas-1753027848904-195246689.apk" className="btn btn-download">
                                             <AndroidIcon />
                                             <span>Android</span>
@@ -74,7 +66,6 @@ export default function Home({ navigate }) {
                 </div>
             </section>
 
-            {/* Features Section */}
             <section className="features-section">
                 <div className="container">
                     <div className="section-title">
